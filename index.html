@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LetsGrowMore</title>
+   
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/tooplate-style.css" />
+    
+  </head>
+
+  <body>
+   
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <div class="tm-main-container">
+      <div class="tm-top-container">
+        
+        <nav id="tmNav" class="tm-nav">
+         
+          <a
+          href="pratik.html"
+          data-linkid="2"
+          data-align="middle"
+          id="abcc" style="border-radius: 30px;">Get Users</a>
+           
+          </ul>
+        </nav>
+
+        
+        <header class="tm-site-header-box tm-bg-dark">
+          <h1 class="tm-site-title">LetsGrowMore</h1>
+          <p class="mb-0 tm-site-subtitle" style="color: rgb(238, 222, 82);">yash</p>
+        </header>
+      </div>
+    </div>
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/background.cycle.js"></script>
+    <script src="slick/slick.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script>
+      let slickInitDone = false;
+      let previousImageId = 0,
+        currentImageId = 0;
+      let pageAlign = "right";
+      let bgCycle;
+      let links;
+      let eachNavLink;
+
+      window.onload = function() {
+        $("body").addClass("loaded");
+      };
+
+      function navLinkClick(e) {
+        if ($(e.target).hasClass("external")) {
+          return;
+        }
+
+        e.preventDefault();
+
+        if ($(e.target).data("align")) {
+          pageAlign = $(e.target).data("align");
+        }
+
+        
+        previousImageId = currentImageId;
+        currentImageId = $(e.target).data("linkid");
+        bgCycle.cycleToNextImage(previousImageId, currentImageId);
+
+        
+        $(`.tm-nav-item:eq(${previousImageId})`).removeClass("active");
+        $(`.tm-nav-item:eq(${currentImageId})`).addClass("active");
+
+        
+        $(`.tm-section-${previousImageId}`).fadeOut(function(e) {
+          $(`.tm-section-${currentImageId}`).fadeIn();
+          
+          if (currentImageId === 2) {
+            setupSlider();
+          }
+        });
+
+        adjustFooter();
+      }
+
+      $(document).ready(function() {
+        
+        $(".tm-section").fadeOut(0);
+        $(".tm-section-0").fadeIn();
+
+        
+        bgCycle = $("body").backgroundCycle({
+          imageUrls: [
+            "img/photo-01.jpg",
+            "img/photo-03.jpg",
+            "img/photo-04.jpg",
+            "img/photo-02.jpg"
+          ],
+          fadeSpeed: 2000,
+          duration: -1,
+          backgroundSize: SCALING_MODE_COVER
+        });
+
+        eachNavLink = $(".tm-nav-link");
+        links = $(".tm-nav-links");
+
+        
+        if (links.hasClass("open")) {
+          links.fadeIn(0);
+        } else {
+          links.fadeOut(0);
+        }
+
+        $("#tm_about_link").on("click", navLinkClick);
+        $("#tm_work_link").on("click", navLinkClick);
+
+        
+        eachNavLink.on("click", navLinkClick);
+
+        $(".tm-navbar-menu").click(function(e) {
+          if (links.hasClass("open")) {
+            links.fadeOut();
+          } else {
+            links.fadeIn();
+          }
+
+          links.toggleClass("open");
+        });
+
+        
+        $(window).resize(function() {
+          
+          if (currentImageId === 2) {
+            setupSlider();
+          }
+
+          
+          adjustFooter();
+        });
+
+        adjustFooter();
+      });
+
+      
+
+      
+    </script>
+  </body>
+</html>

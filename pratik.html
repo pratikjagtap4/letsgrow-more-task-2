@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>yash</title>
+   
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/tooplate-style.css" />
+    
+  </head>
+
+  <body>
+   
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+
+    <h1 id="ccc"  style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);margin-left: 40rem;margin-right: 40rem;font-family: 'Times New Roman', Times, serif;font-weight: bolder;">USERS</h1>
+        
+        <!-- <header class="tm-site-header-box tm-bg-dark">
+          <h1 class="tm-site-title">API CALL</h1>
+          <p class="mb-0 tm-site-subtitle">Ankit</p>
+        </header> -->
+     
+
+              <section class="tm-section tm-section-0 mx-auto" >
+                <div class="grid tm-gallery" >
+                  <div class="first-block">
+
+                  <figure id="abc" class="effect-goliath tm-gallery-item" >
+                    <img style="height: 300px; width: 400px; border: image 1px;" src="img/1-image.jpg" alt="Image 1" class="" />
+                    <figcaption>
+                      <h2>
+                        ROCK LEE
+                        
+                        <span></span>
+                      </h2>
+                      <p>Details</p>
+                      <a href="img/1-image.jpg"></a>
+                    </figcaption>
+                  </figure>
+                  <figure class="effect-goliath tm-gallery-item">
+                    <img style="height: 300px; width: 400px;" src="img/2-image.jpg" alt="Pretty Girl" class="" />
+                    <figcaption>
+                      <h2>
+                        JAMES AUGUST
+                        <span></span>
+                      </h2>
+                      <p>Details</p>
+                      <a href="img/2-image.jpg"></a>
+                    </figcaption>
+                  </figure>
+                  <figure class="effect-goliath tm-gallery-item">
+                    <img  style="height: 300px; width: 400px;"src="img/3-image.jpg" alt="Red Flowers" class="" />
+                    <figcaption>
+                      <h2>
+                        EVA WILL
+                        <span></span>
+                      </h2>
+                      <p>Details</p>
+                      
+                      <a href="img/3-image.jpg"></a>
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <div class="second-block">
+                  <figure class="effect-goliath tm-gallery-item">
+                    <img  style="height: 300px; width: 400px;" src="img/4-image.jpg" alt="Stairs" class="" />
+                    <figcaption>
+                      <h2>
+                        EMILY HOLT
+                        <span></span>
+                        
+                      </h2>
+                      <p>Details</p>
+                      <a href="img/4-image.jpg"></a>
+                    </figcaption>
+                  </figure>
+                  <figure class="effect-goliath tm-gallery-item" id="abc">
+                    <img  style="height: 300px; width: 400px;" src="img/5-image.jpg" alt="Image 5" class="" />
+                    <figcaption>
+                      <h2>
+                        CHRIS Morris
+                        <span></span>
+                      </h2>
+                      <p>Details</p>
+                      <a href="img/5-image.jpg"></a>
+                    </figcaption>
+                  </figure>
+                  <figure class="effect-goliath tm-gallery-item">
+                    <img  style="height: 300px; width: 400px;" src="img/6-image.jpg" alt="Image 6" class="" />
+                    <figcaption>
+                      <h2>
+                        JOHN WALT
+                        <span></span>
+                      </h2>
+                      <p>Details</p>
+                      <a href="img/6-image.jpg"></a>
+                    </figcaption>
+                  </figure>
+                </div>
+                  
+                  
+                </div>
+              </section>
+
+              
+                        
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/background.cycle.js"></script>
+    <script src="slick/slick.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script>
+      let slickInitDone = false;
+      let previousImageId = 0,
+        currentImageId = 0;
+      let pageAlign = "right";
+      let bgCycle;
+      let links;
+      let eachNavLink;
+
+      window.onload = function() {
+        $("body").addClass("loaded");
+      };
+
+      function navLinkClick(e) {
+        if ($(e.target).hasClass("external")) {
+          return;
+        }
+
+        e.preventDefault();
+
+        if ($(e.target).data("align")) {
+          pageAlign = $(e.target).data("align");
+        }
+
+        
+        previousImageId = currentImageId;
+        currentImageId = $(e.target).data("linkid");
+        bgCycle.cycleToNextImage(previousImageId, currentImageId);
+
+        
+        $(`.tm-nav-item:eq(${previousImageId})`).removeClass("active");
+        $(`.tm-nav-item:eq(${currentImageId})`).addClass("active");
+
+        
+        $(`.tm-section-${previousImageId}`).fadeOut(function(e) {
+          $(`.tm-section-${currentImageId}`).fadeIn();
+          
+          if (currentImageId === 2) {
+            setupSlider();
+          }
+        });
+
+        adjustFooter();
+      }
+
+      $(document).ready(function() {
+        
+        $(".tm-section").fadeOut(0);
+        $(".tm-section-0").fadeIn();
+
+        
+        bgCycle = $("body").backgroundCycle({
+          imageUrls: [
+            "img/photo-06.jpg",
+            "img/photo-03.jpg",
+            "img/photo-04.jpg",
+            "img/photo-02.jpg"
+          ],
+          fadeSpeed: 2000,
+          duration: -1,
+          backgroundSize: SCALING_MODE_COVER
+        });
+
+        eachNavLink = $(".tm-nav-link");
+        links = $(".tm-nav-links");
+
+       
+        if (links.hasClass("open")) {
+          links.fadeIn(0);
+        } else {
+          links.fadeOut(0);
+        }
+
+        $("#tm_about_link").on("click", navLinkClick);
+        $("#tm_work_link").on("click", navLinkClick);
+
+        
+        eachNavLink.on("click", navLinkClick);
+
+        $(".tm-navbar-menu").click(function(e) {
+          if (links.hasClass("open")) {
+            links.fadeOut();
+          } else {
+            links.fadeIn();
+          }
+
+          links.toggleClass("open");
+        });
+
+        
+        $(window).resize(function() {
+          
+          if (currentImageId === 2) {
+            setupSlider();
+          }
+
+          
+          adjustFooter();
+        });
+
+        adjustFooter();
+      }); 
+
+      function adjustFooter() {
+        const windowHeight = $(window).height();
+        const topHeight = $(".tm-top-container").height();
+        const middleHeight = $(".tm-content").height();
+        let contentHeight = topHeight + middleHeight;
+
+        if (pageAlign === "left") {
+          contentHeight += $(".tm-bottom-container").height();
+        }
+
+        if (contentHeight > windowHeight) {
+          $(".tm-bottom-container").addClass("tm-static");
+        } else {
+          $(".tm-bottom-container").removeClass("tm-static");
+        }
+      }
+
+      function setupSlider() {
+        let slidesToShow = 4;
+        let slidesToScroll = 2;
+        let windowWidth = $(window).width();
+
+        if (windowWidth < 480) {
+          slidesToShow = 1;
+          slidesToScroll = 1;
+        } else if (windowWidth < 768) {
+          slidesToShow = 2;
+          slidesToScroll = 1;
+        } else if (windowWidth < 992) {
+          slidesToShow = 3;
+          slidesToScroll = 2;
+        }
+
+        if (slickInitDone) {
+          $(".tm-gallery").slick("unslick");
+        }
+
+        slickInitDone = true;
+
+        
+        $(".slick-list").magnificPopup({
+          delegate: "a",
+          type: "image",
+          gallery: {
+            enabled: true
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
